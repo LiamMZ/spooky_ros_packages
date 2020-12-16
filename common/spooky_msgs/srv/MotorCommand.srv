@@ -1,0 +1,5 @@
+uint8 motor # the motor you wish to send the command to (1-4)
+uint8 speed # the speed you want to set the motor to (0-255)
+uint8 command # the command you want to send to the motor (forward=1,backward=2,brake=3,release=4)
+---
+bool success # indicates the command was successfully recieved by the motor

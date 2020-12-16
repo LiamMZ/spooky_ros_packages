@@ -34,6 +34,14 @@
 #include <sstream>
 #include <regex>
 
+enum Command
+{
+    kForward = 1,
+    kBackward = 2,
+    kBrake = 3,
+    kRelease = 4,
+};
+
 namespace log
 {
     /**

@@ -26,18 +26,12 @@
 
 #pragma once
 
-#include "pwm.h"
+#include <motor_actuator/pwm.h>
+#include <motor_actuator/util.h>
 
 class AdafruitDCMotor
 {
 public:
-    enum Command
-    {
-        kForward = 1,
-        kBackward = 2,
-        kBrake = 3,
-        kRelease = 4,
-    };
 
     AdafruitDCMotor (PWM& pwm, int index);
 

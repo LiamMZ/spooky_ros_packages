@@ -31,6 +31,7 @@ add_library( ${PROJECT_NAME}
     src/adafruitdcmotor.cpp
     src/adafruitmotorhat.cpp
     src/i2cdevice.cpp 
+    src/motor_driver.cpp
     src/pwm.cpp
     )
 

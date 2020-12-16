@@ -1,6 +1,6 @@
 #include <motor_actuator/motor_driver.h>
 
-MotorDriver::MotorDriver(int address, std::vector<bool> motors) : hat_(AdafruitMotorHAT(address))
+MotorDriver::MotorDriver(int address, const std::vector<bool>& motors) : hat_(AdafruitMotorHAT(address))
 {
     for(int i = 0; i<motors.size(); i++)
     {
@@ -15,11 +15,11 @@ MotorDriver::~MotorDriver()
 {
     for(const auto & motor : motors_)
     {
-        motor.second->run (AdafruitDCMotor::kRelease);
+        motor.second->run (kRelease);
     }
 }
 
-bool MotorDriver::setMotor(int motor, int speed, AdafruitDCMotor::Command command)
+bool MotorDriver::setMotor(int motor, int speed, Command command)
 {
     try{
         motors_[motor]->setSpeed(speed);
