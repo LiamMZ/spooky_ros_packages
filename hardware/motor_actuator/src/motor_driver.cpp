@@ -11,6 +11,14 @@ MotorDriver::MotorDriver(int address, const std::vector<bool>& motors) : hat_(Ad
     }
 }
 
+MotorDriver::MotorDriver()
+{
+    for(int i = 0; i<NUM_MOTORS; i++)
+    {
+        motors_[i+1] = hat_.getMotor(i+1);
+    }
+}
+
 MotorDriver::~MotorDriver()
 {
     for(const auto & motor : motors_)

@@ -2,6 +2,8 @@
 #include <unordered_map>
 #include <motor_actuator/util.h>
 
+#define NUM_MOTORS 4
+
 class MotorDriver
 {
     public:
@@ -12,6 +14,12 @@ class MotorDriver
          * @param[in] motors - one hot array of motors indicating which motors are in use
          */
         MotorDriver(int address, const std::vector<bool>& motors);
+
+        /**
+         * Default Constructo
+         */
+        MotorDriver();
+
         /**
          * Destructor, releases motors if not released already
          */
