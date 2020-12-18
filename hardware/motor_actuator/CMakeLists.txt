@@ -5,6 +5,8 @@ find_package(catkin REQUIRED COMPONENTS
   roscpp
   rospy
   std_msgs
+  nodelet
+  pluginlib
 )
 
 
@@ -24,6 +26,28 @@ catkin_package(
 include_directories(
   include
   ${catkin_INCLUDE_DIRS}
+)
+
+add_library(MotorActuatorNodelet
+src/safety_controller.cpp
+)
+add_dependencies(MotorActuatorNodelet
+${catkin_EXPORTED_TARGETS}
+)
+target_link_libraries(MotorActuatorNodelet
+${catkin_LIBRARIES}
+)
+
+install(TARGETS MotorActuatorNodelet
+DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION}
+)
+
+install(DIRECTORY include/${PROJECT_NAME}/
+DESTINATION ${CATKIN_PACKAGE_INCLUDE_DESTINATION}
+)
+
+install(DIRECTORY plugins
+DESTINATION ${CATKIN_PACKAGE_SHARE_DESTINATION}
 )
 
 # Declare a C++ library
