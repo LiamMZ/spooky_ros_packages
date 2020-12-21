@@ -7,6 +7,7 @@ find_package(catkin REQUIRED COMPONENTS
   std_msgs
   nodelet
   pluginlib
+  spooky_msgs
 )
 
 
@@ -28,28 +29,6 @@ include_directories(
   ${catkin_INCLUDE_DIRS}
 )
 
-add_library(MotorActuatorNodelet
-src/safety_controller.cpp
-)
-add_dependencies(MotorActuatorNodelet
-${catkin_EXPORTED_TARGETS}
-)
-target_link_libraries(MotorActuatorNodelet
-${catkin_LIBRARIES}
-)
-
-install(TARGETS MotorActuatorNodelet
-DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION}
-)
-
-install(DIRECTORY include/${PROJECT_NAME}/
-DESTINATION ${CATKIN_PACKAGE_INCLUDE_DESTINATION}
-)
-
-install(DIRECTORY plugins
-DESTINATION ${CATKIN_PACKAGE_SHARE_DESTINATION}
-)
-
 # Declare a C++ library
 add_library( ${PROJECT_NAME}
     src/adafruitdcmotor.cpp
@@ -59,7 +38,17 @@ add_library( ${PROJECT_NAME}
     src/pwm.cpp
     )
 
+add_library(MotorActuatorNodelet src/motor_actuator_nodelet.cpp)
+target_link_libraries(MotorActuatorNodelet ${catkin_LIBRARIES} ${PROJECT_NAME})
+## Mark the nodelet library for installations
+install(TARGETS MotorActuatorNodelet
+  ARCHIVE DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION}
+  LIBRARY DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION}
+  RUNTIME DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION})
 
-add_executable(motor_test src/main.cpp)
-target_link_libraries(motor_test ${PROJECT_NAME})
+## Mark other files for installation (e.g. launch and bag files, etc.)
+install(FILES nodelet_plugin.xml motor_actuator_nodelet.launch
+  DESTINATION ${CATKIN_PACKAGE_SHARE_DESTINATION})
+# add_executable(motor_test src/main.cpp)
+# target_link_libraries(motor_test ${PROJECT_NAME})
 

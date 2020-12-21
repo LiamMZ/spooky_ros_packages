@@ -1,5 +1,13 @@
 #include <motor_actuator/motor_driver.h>
 
+MotorDriver::MotorDriver()
+{
+    for(int i = 0; i<NUM_MOTORS; i++)
+    {
+        motors_[i+1] = hat_.getMotor(i+1);
+    }
+}
+
 MotorDriver::MotorDriver(int address, const std::vector<bool>& motors) : hat_(AdafruitMotorHAT(address))
 {
     for(int i = 0; i<motors.size(); i++)
@@ -8,14 +16,6 @@ MotorDriver::MotorDriver(int address, const std::vector<bool>& motors) : hat_(Ad
         {
             motors_[i+1] = hat_.getMotor(i+1);
         }
-    }
-}
-
-MotorDriver::MotorDriver()
-{
-    for(int i = 0; i<NUM_MOTORS; i++)
-    {
-        motors_[i+1] = hat_.getMotor(i+1);
     }
 }
 

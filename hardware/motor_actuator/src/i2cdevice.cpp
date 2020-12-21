@@ -92,7 +92,7 @@ void I2CDevice::openHandle()
 
     if (!isValid())
     {
-        log::strerror ("Couldn't open device");
+        util_log::strerror ("Couldn't open device");
     }
 }
 
@@ -102,7 +102,7 @@ void I2CDevice::closeHandle()
     {
         if (close (handle) < 0)
         {
-            log::strerror ("Couldn't close device");
+            util_log::strerror ("Couldn't close device");
         }
     }
 }
@@ -111,7 +111,7 @@ void I2CDevice::selectDevice()
 {
     if (ioctl (handle, I2C_SLAVE, address & 0x7F) < 0)
     {
-        log::strerror ("Failed to select device");
+        util_log::strerror ("Failed to select device");
     }
 }
 
@@ -125,7 +125,7 @@ void I2CDevice::writeByteData (int deviceRegister, int data)
 
     if (write (handle, buffer, 2) != 2)
     {
-        log::strerror ("Failed to write to device");
+        util_log::strerror ("Failed to write to device");
     }
 }
 
@@ -135,7 +135,7 @@ int I2CDevice::readByteData (int deviceRegister)
 
     if (read (handle, &buffer, 1) != 1)
     {
-        log::strerror ("Failed to read from device");
+        util_log::strerror ("Failed to read from device");
         return -1;
     }
 

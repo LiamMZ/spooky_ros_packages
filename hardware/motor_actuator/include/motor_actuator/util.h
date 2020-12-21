@@ -42,7 +42,7 @@ enum Command
     kRelease = 4,
 };
 
-namespace log
+namespace util_log
 {
     /**
         Writes a message to stdout.
@@ -92,7 +92,7 @@ namespace util
             }
             return false;
         }
-        log::error ("Failed to open " + filename);
+        util_log::error ("Failed to open " + filename);
         return false;
     }
 
@@ -123,7 +123,7 @@ namespace util
             }
         }
 
-        log::error ("Couldn\'t find Raspberry Pi revision number.");
+        util_log::error ("Couldn\'t find Raspberry Pi revision number.");
         return -1;
     }
 
@@ -159,7 +159,7 @@ namespace util
             }
         }
 
-        log::error ("Unrecognised Raspberry Pi device.");
+        util_log::error ("Unrecognised Raspberry Pi device.");
         return -1;
     }
 }

@@ -17,17 +17,20 @@ namespace motor_actuator
         Setup(getNodeHandle());
     }
 
-    void MotorActuatorNodelet::Setup(ros::NodHandle& nh)
+    void MotorActuatorNodelet::Setup(ros::NodeHandle& nh)
     {
         nh_ = nh; 
-        motor_server = nh.advertiseService("motor_actuator", motor_callback);
+        motor_server_ = nh.advertiseService("motor_actuator", &MotorActuatorNodelet::motor_callback, this);
         
     }
 
     bool MotorActuatorNodelet::motor_callback(spooky_msgs::MotorCommand::Request& req,
                                  spooky_msgs::MotorCommand::Response& res)
     {
-        driver.setMotor(req.motor, req.speed, std::static_cast<Command>(req.command));
+        bool success;
+        success = driver_.setMotor(req.motor, req.speed, static_cast<Command>(req.command));
+        res.success = success;
+        return success;
     }
     
 }

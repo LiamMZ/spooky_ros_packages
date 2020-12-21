@@ -1,4 +1,4 @@
-<library path="lib/MotorActuatorNodelet">
+<library path="lib/libMotorActuatorNodelet">
   <class name="motor_actuator/MotorActuatorNodelet" type="motor_actuator::MotorActuatorNodelet" base_class_type="nodelet::Nodelet">
   <description>
     Nodelet to host services required for actuating motors on mobile robot.

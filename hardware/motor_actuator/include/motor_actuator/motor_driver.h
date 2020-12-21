@@ -16,7 +16,7 @@ class MotorDriver
         MotorDriver(int address, const std::vector<bool>& motors);
 
         /**
-         * Default Constructo
+         * Default Constructor
          */
         MotorDriver();
 
