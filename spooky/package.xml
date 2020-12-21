@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<package>
+ <name>spooky</name>
+  <version>0.0.0</version>
+  <description>The spooky package provides system launch functionality.
+  </description>
+  
+  <author email="liam.merzhoffmeister@gmail.com">
+    Spooky AGV Software
+  </author>
+  <maintainer email="liam.merzhoffmeister@gmail.com">
+    Spooky AGV Software
+  </maintainer>
+  <license> MIT</license>
+  <buildtool_depend>catkin</buildtool_depend>
+  <build_depend>roscpp</build_depend>
+  <run_depend>roscpp</run_depend>
+  <export>
+  </export>
+</package>
