@@ -1,12 +1,8 @@
-// this should really be in the implementation (.cpp file)
+#include <motor_actuator/motor_actuator_nodelet.h>
+#include <motor_actuator/util.h>
 #include <pluginlib/class_list_macros.h>
 
-// Include your header
-#include <motor_actuator/motor_actuator_nodelet.h>
 
-#include <motor_actuator/util.h>
-
-// watch the capitalization carefully
 PLUGINLIB_EXPORT_CLASS(motor_actuator::MotorActuatorNodelet, nodelet::Nodelet)
 
 namespace motor_actuator

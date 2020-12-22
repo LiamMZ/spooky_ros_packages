@@ -1,0 +1,7 @@
+<library path="lib/libRaspiCamNodelet">
+  <class name="raspi_cam/RaspiCamNodelet" type="raspi_cam::RaspiCamNodelet" base_class_type="nodelet::Nodelet">
+  <description>
+    Nodelet to publish image data from raspberry pi camera.
+  </description>
+  </class>
+</library>

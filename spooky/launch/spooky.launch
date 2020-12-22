@@ -1,4 +1,21 @@
 <launch>
+    <arg name="nodelet_manager" default="spooky"/>
+    <arg name="output" default="screen"/>
+
+
+<!-- Start a nodelet manager, if needed -->
+<node pkg="nodelet" type="nodelet" name="$(arg nodelet_manager)"
+args="manager" output="$(arg output)"/>
+
+<!-- Hardware nodes -->
+<include file="$(find motor_actuator)/launch/motor_actuator_nodelet.launch">
+    <arg name="name" value="motor_actuator"/>
+    <arg name="class" value="motor_actuator/MotorActuatorNodelet"/>
+    <arg name="manager" value="$(arg nodelet_manager)"/>
+    <arg name="enable" value="true"/>
+    <arg name="output" value="$(arg output)"/>
+    <arg name="arguments" value="" />
+</include>
 
 
 </launch>
