@@ -1,4 +1,5 @@
 #include <nodelet/nodelet.h>
+#include <optional>
 #include <ros/ros.h>
 #include <raspicam/raspicam_cv.h>
 #include <image_transport/image_transport.h>
@@ -18,7 +19,7 @@ namespace raspi_cam
         private:
             void runPublisher();
             void convertImage(cv::Mat& image, cv_bridge::CvImagePtr& cv_ptr);
-            image_transport::ImageTransport it_;
+            std::optional<image_transport::ImageTransport> it_;
             raspicam::RaspiCam_Cv camera_;
             ros::NodeHandle nh_;
             image_transport::Publisher image_pub_;

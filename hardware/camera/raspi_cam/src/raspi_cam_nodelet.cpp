@@ -15,7 +15,7 @@ namespace raspi_cam
     void RaspiCamNodelet::Setup(ros::NodeHandle nh)
     {
         nh_ = nh;
-        it_ = image_transport::ImageTransport(nh_);
+        it_.emplace(image_transport::ImageTransport(nh_));
         image_pub_ = it_.advertise("/camera/image", 1);
     }
 
