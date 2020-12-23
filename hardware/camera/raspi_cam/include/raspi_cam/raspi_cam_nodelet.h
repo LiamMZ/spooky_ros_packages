@@ -9,7 +9,7 @@
 
 namespace raspi_cam
 {
-    class RaspiCamNodelet
+    class RaspiCamNodelet : public nodelet::Nodelet
     {
         public:
             virtual void onInit();
@@ -20,7 +20,7 @@ namespace raspi_cam
             void convertImage(cv::Mat& image, cv_bridge::CvImagePtr& cv_ptr);
             image_transport::ImageTransport it_;
             raspicam::RaspiCam_Cv camera_;
-            ros::NodeHandle nh;
+            ros::NodeHandle nh_;
             image_transport::Publisher image_pub_;
 
     };

@@ -1,7 +1,7 @@
 <launch>
   <!-- Required Args -->
-  <arg name="name"/>    <!-- nodlet name -->
-  <arg name="class"/>   <!-- nodelet class-->
+  <arg name="name" default="raspi_cam"/>    <!-- nodlet name -->
+  <arg name="class" default="raspi_cam/RaspiCamNodelet"/>   <!-- nodelet class-->
 
   <!-- Optional Args -->
   <arg name="manager" default=""/>
