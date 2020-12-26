@@ -2,7 +2,6 @@
 #include <unordered_map>
 #include <motor_actuator/util.h>
 
-#define NUM_MOTORS 4
 
 class MotorDriver
 {
@@ -32,11 +31,15 @@ class MotorDriver
          */
         void setMotor(int motor, float speed);
 
+    private:
+        /**
+         * FUnction to convert a speed from a float to an unsigned int
+         * @param[in] speed - speed as a float;
+         * @returns speed - speed as an unsigned integer between 0-255
+         */
         int convertSpeed(float speed);
 
         Command getCommand(float speed);
-
-    private:
         /**
          * Handle for the raspi motor hat
          */
@@ -48,4 +51,7 @@ class MotorDriver
 
         // max difference for isEqual comparison
         const float TOLLERENCE = 0.002;
+
+        // the number of motor outputs on board
+        const int NUM_MOTORS = 4;
 };

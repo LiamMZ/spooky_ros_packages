@@ -8,3 +8,6 @@ class PhotoInterupterEncoder(object):
         
     def when_changed(self):
         self.pulse_count += 1
+    
+    def reset_count(self):
+        self.pulse_count = 0
