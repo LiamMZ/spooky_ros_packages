@@ -1,11 +1,20 @@
 <launch>
     <arg name="nodelet_manager" default="spooky"/>
     <arg name="output" default="screen"/>
-
+    <arg name="chassis" default="4_wheel"/>
 
 <!-- Start a nodelet manager, if needed -->
 <node pkg="nodelet" type="nodelet" name="$(arg nodelet_manager)"
 args="manager" output="$(arg output)"/>
+
+<!-- Static tfs for 4 wheeled chassis-->
+<group if="$(eval arg(chassis)=='4_wheel')">
+    <node pkg="tf" type="static_transform_publisher" name="base_laser_broadcaster" args="0 0 0 0 0 0 1 /base_link /base_laser 100"/>
+</group>
+<!-- Static tfs for 2_motor tank chassis-->
+<group if="$(eval arg(chassis)=='tank')">
+    <node pkg="tf" type="static_transform_publisher" name="base_laser_broadcaster" args="0 0 0 0 0 0 1 /base_link /base_laser 100"/>
+</group>
 
 <!-- Hardware nodes -->
 <include file="$(find motor_actuator)/launch/motor_actuator_nodelet.launch">
