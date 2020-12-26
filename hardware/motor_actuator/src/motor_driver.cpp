@@ -1,4 +1,5 @@
 #include <motor_actuator/motor_driver.h>
+#include <limits>
 
 MotorDriver::MotorDriver()
 {
@@ -27,14 +28,26 @@ MotorDriver::~MotorDriver()
     }
 }
 
-bool MotorDriver::setMotor(int motor, int speed, Command command)
+void MotorDriver::setMotor(int motor, float speed)
 {
     try{
-        motors_[motor]->setSpeed(speed);
-        motors_[motor]->run(command);
-        return true;
+        motors_[motor]->setSpeed(convertSpeed(speed));
+        motors_[motor]->run(getCommand(speed));
     } catch(...)
     {
-        return false;
+        std::stringstream str;
+        str<<"Error when trying to set speed to "<<speed<<" for motor "<<motor;
+        util_log::error(str.str());
     }
+}
+
+Command MotorDriver::getCommand(float speed)
+{
+    if(util::isEqual(speed, 0.0, TOLLERENCE)) return kBrake;
+    return speed<0.0 ? kBackward : kForward;
+}
+
+int MotorDriver::convertSpeed(float speed)
+{
+    return (int)(255 * (std::abs(speed)/std::numeric_limits<float>::max()));
 }

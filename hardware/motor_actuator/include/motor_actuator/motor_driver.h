@@ -28,10 +28,13 @@ class MotorDriver
          * Function to set the action of a motor
          * 
          * @param[in] motor - motor id for motor you wish to command
-         * @param[in] speed - the desired speed for the indicated motor 0-255
-         * @param[in] command - the command for the given motor in [kforward, kbackward, kBrake, kRelease]
+         * @param[in] speed - the desired speed for the indicated motor will be converted to 0-255
          */
-        bool setMotor(int motor, int speed, Command command);
+        void setMotor(int motor, float speed);
+
+        int convertSpeed(float speed);
+
+        Command getCommand(float speed);
 
     private:
         /**
@@ -42,4 +45,7 @@ class MotorDriver
          * Map of active motors
          */
         std::unordered_map<int, std::shared_ptr<AdafruitDCMotor>> motors_;
+
+        // max difference for isEqual comparison
+        const float TOLLERENCE = 0.002;
 };
