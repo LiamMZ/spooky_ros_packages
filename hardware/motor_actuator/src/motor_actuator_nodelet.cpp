@@ -15,24 +15,42 @@ namespace motor_actuator
 
     void MotorActuatorNodelet::Setup(ros::NodeHandle& nh)
     {
-        nh_ = nh; 
-        nh.getParam("left_rear_motor", left_rear_motor_);
-        nh.getParam("left_front_motor", left_front_motor_);
-        nh.getParam("right_rear_motor", right_rear_motor_);
-        nh.getParam("right_front_motor", right_front_motor_);
-        left_motor_sub_ = nh.subscribe("rmotor_cmd", 1000, &MotorActuatorNodelet::right_motor_callback, this);
-        right_motor_sub_ = nh.subscribe("lmotor_cmd", 1000, &MotorActuatorNodelet::left_motor_callback, this);
+        try
+        {
+            nh_ = nh; 
+            nh.getParam("/motor_actuator/left_rear_motor", left_rear_motor_);
+            nh.getParam("/motor_actuator/left_front_motor", left_front_motor_);
+            nh.getParam("/motor_actuator/right_rear_motor", right_rear_motor_);
+            nh.getParam("/motor_actuator/right_front_motor", right_front_motor_);
+            left_motor_sub_ = nh.subscribe("rmotor_cmd", 1000, &MotorActuatorNodelet::right_motor_callback, this);
+            right_motor_sub_ = nh.subscribe("lmotor_cmd", 1000, &MotorActuatorNodelet::left_motor_callback, this);
+        }
+        catch(...)
+        {
+            ROS_ERROR("Failed motor actuator node set up\n");
+        }
     }
 
     void MotorActuatorNodelet::left_motor_callback(const std_msgs::Float32 cmd)
     {
-        driver_.setMotor(left_rear_motor_, cmd.data);
-        driver_.setMotor(left_front_motor_,cmd.data);
+        try
+        {
+            driver_lock.lock();
+            driver_.setMotor(left_rear_motor_, cmd.data);
+            driver_.setMotor(left_front_motor_,cmd.data);
+            driver_lock.unlock();
+        }
+        catch(...)
+        {
+            ROS_ERROR("Failed to set left motors\n");
+        }
     }
     
     void MotorActuatorNodelet::right_motor_callback(const std_msgs::Float32 cmd)
     {
+        driver_lock.lock();
         driver_.setMotor(right_rear_motor_, cmd.data);
         driver_.setMotor(right_front_motor_, cmd.data);
+        driver_lock.unlock();
     }
 }

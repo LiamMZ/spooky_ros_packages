@@ -1,5 +1,5 @@
 #include <motor_actuator/motor_driver.h>
-#include <limits>
+#include <sstream>
 
 MotorDriver::MotorDriver()
 {
@@ -24,6 +24,7 @@ MotorDriver::~MotorDriver()
 {
     for(const auto & motor : motors_)
     {
+        util_log::output("setting up motor\n");
         motor.second->run (kRelease);
     }
 }
@@ -49,5 +50,7 @@ Command MotorDriver::getCommand(float speed)
 
 int MotorDriver::convertSpeed(float speed)
 {
-    return (int)(255 * (std::abs(speed)/std::numeric_limits<float>::max()));
+    if(std::abs(speed)>100.0) speed = 100.0;
+    int new_speed = (int)(255 * (std::abs(speed)/100.0));
+    return new_speed;
 }

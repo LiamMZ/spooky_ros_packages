@@ -2,6 +2,7 @@
 #include <ros/ros.h>
 #include <motor_actuator/motor_driver.h>
 #include <std_msgs/Float32.h>
+#include <mutex>
 
 
 namespace motor_actuator
@@ -22,6 +23,8 @@ namespace motor_actuator
             void Setup(ros::NodeHandle& nh);
 
         private:
+            // member variable for motor driver 
+            MotorDriver driver_;
             /**
              * Callback for motor command service
              * 
@@ -39,8 +42,6 @@ namespace motor_actuator
             ros::Subscriber left_motor_sub_;
             // member variable for right motor command subscriber
             ros::Subscriber right_motor_sub_;
-            // member variable for motor driver 
-            MotorDriver driver_;
             // member variable for node handle
             ros::NodeHandle nh_;
             
@@ -49,6 +50,7 @@ namespace motor_actuator
             int left_front_motor_;
             int right_rear_motor_;
             int right_front_motor_;
+            std::mutex driver_lock;
     };
 
 }

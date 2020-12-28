@@ -3,6 +3,7 @@
 #include <motor_actuator/util.h>
 
 
+
 class MotorDriver
 {
     public:
@@ -31,6 +32,7 @@ class MotorDriver
          */
         void setMotor(int motor, float speed);
 
+
     private:
         /**
          * FUnction to convert a speed from a float to an unsigned int
@@ -54,4 +56,5 @@ class MotorDriver
 
         // the number of motor outputs on board
         const int NUM_MOTORS = 4;
+
 };
