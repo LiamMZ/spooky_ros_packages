@@ -19,9 +19,10 @@ namespace raspi_cam
         private:
             void runPublisher();
             void convertImage(cv::Mat& image, cv_bridge::CvImagePtr& cv_ptr);
-            std::optional<image_transport::ImageTransport> it_;
-            raspicam::RaspiCam_Cv camera_;
             ros::NodeHandle nh_;
+            // image_transport::ImageTransport it_(nh_);
+            raspicam::RaspiCam_Cv camera_;
+            
             image_transport::Publisher image_pub_;
 
     };
