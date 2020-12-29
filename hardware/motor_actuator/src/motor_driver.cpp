@@ -24,7 +24,6 @@ MotorDriver::~MotorDriver()
 {
     for(const auto & motor : motors_)
     {
-        util_log::output("setting up motor\n");
         motor.second->run (kRelease);
     }
 }
@@ -50,7 +49,7 @@ Command MotorDriver::getCommand(float speed)
 
 int MotorDriver::convertSpeed(float speed)
 {
-    if(std::abs(speed)>100.0) speed = 100.0;
-    int new_speed = (int)(255 * (std::abs(speed)/100.0));
+    if(std::abs(speed)>250.0) speed = 250.0;
+    int new_speed = (int)(255 * (std::abs(speed)/2500.0));
     return new_speed;
 }

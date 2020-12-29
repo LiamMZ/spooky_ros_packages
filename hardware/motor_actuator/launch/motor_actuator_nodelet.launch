@@ -8,10 +8,11 @@
   <arg name="enable" default="true"/>
   <arg name="output" default="screen"/>
   <arg name="arguments" default="" />              <!-- Arguments to nodelet -->
-  <arg name="left_rear_motor" default="2"/>
   <arg name="left_front_motor" default="1"/>
-  <arg name="right_rear_motor" default="4"/>
+  <arg name="left_rear_motor" default="2"/>
   <arg name="right_front_motor" default="3"/>
+  <arg name="right_rear_motor" default="4"/>
+  
 
  <!-- Don't do anything if the node is disabled -->
   <group if="$(arg enable)">

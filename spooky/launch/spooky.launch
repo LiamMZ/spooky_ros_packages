@@ -2,17 +2,21 @@
     <arg name="nodelet_manager" default="spooky"/>
     <arg name="output" default="screen"/>
     <arg name="chassis" default="4_wheel"/>
+    <arg name="left_front_motor" default="1"/>
+    <arg name="left_rear_motor" default="2"/>
+    <arg name="right_front_motor" default="3"/>
+    <arg name="right_rear_motor" default="4"/>
 
 <!-- Start a nodelet manager, if needed -->
 <node pkg="nodelet" type="nodelet" name="$(arg nodelet_manager)"
 args="manager" output="$(arg output)"/>
 
 <!-- Static tfs for 4 wheeled chassis-->
-<group if="$(eval (arg chassis)=='4_wheel')">
+<group if="$(eval arg('chassis')=='4_wheel')">
     <node pkg="tf" type="static_transform_publisher" name="base_laser_broadcaster" args="0 0 0 0 0 0 1 /base_link /base_laser 100"/>
 </group>
 <!-- Static tfs for 2_motor tank chassis-->
-<group if="$(eval (arg chassis)=='tank')">
+<group if="$(eval arg('chassis')=='tank')">
     <node pkg="tf" type="static_transform_publisher" name="base_laser_broadcaster" args="0 0 0 0 0 0 1 /base_link /base_laser 100"/>
 </group>
 
@@ -24,7 +28,13 @@ args="manager" output="$(arg output)"/>
     <arg name="enable" value="true"/>
     <arg name="output" value="$(arg output)"/>
     <arg name="arguments" value="" />
+    <arg name="left_rear_motor" value="$(arg left_rear_motor)"/>
+    <arg name="left_front_motor" value="$(arg left_front_motor)"/>
+    <arg name="right_rear_motor" value="$(arg right_rear_motor)"/>
+    <arg name="right_front_motor" value="$(arg right_front_motor)"/>
 </include>
+
+<include file="$(find rplidar_ros)/launch/rplidar.launch"/>
 
 
 </launch>
