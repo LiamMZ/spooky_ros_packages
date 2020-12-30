@@ -35,7 +35,7 @@
 class AdafruitMotorHAT
 {
 public:
-    AdafruitMotorHAT (int address = 0x6F, int freq = 1600);
+    AdafruitMotorHAT (int address = 0x6F, int freq = 16000);
 
     /** Get one of the DC motors controlled by the HAT.
      *  Expects a value between 1 and 4 inclusive.
