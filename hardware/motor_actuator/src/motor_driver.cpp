@@ -50,6 +50,6 @@ Command MotorDriver::getCommand(float speed)
 int MotorDriver::convertSpeed(float speed)
 {
     if(std::abs(speed)>250.0) speed = 250.0;
-    int new_speed = (int)(255 * (std::abs(speed)/2500.0));
+    int new_speed = (int)(255 * (std::abs(speed)/250.0));
     return new_speed;
 }

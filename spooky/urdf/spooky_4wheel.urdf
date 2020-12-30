@@ -3,9 +3,9 @@
   <link name="base_link">
     <visual>
       <geometry>
-        <box size=".2905125 .1524 .0492125"/>
+        <box size=".2905125 .1016 .034925"/>
       </geometry>
-      <origin rpy="0 0 0" xyz="0 0 0.04524375"/>
+      <origin rpy="0 0 0" xyz="0 0 0.034925"/>
       <material name="white">
         <color rgba="1 1 1 1"/>
       </material>
@@ -88,11 +88,11 @@
 <link name="base_laser">
 <visual>
     <geometry>
-    <cylinder length="0.0381" radius="0.034925"/>
+    <cylinder length="0.0682625" radius="0.034925"/>
     </geometry>
     <origin rpy="0 0 0" xyz="0 0 0"/>
-    <material name="red">
-    <color rgba="1 0 0 0"/>
+    <material name="black">
+    <color rgba="0 0 0 1"/>
     </material>
 </visual>
 </link>
@@ -100,7 +100,7 @@
 <joint name="base_to_laser" type="fixed">
 <parent link="base_link"/>
 <child link="base_laser"/>
-<origin xyz="-0.0889 0 0.0635" rpy="0 0 0"/>
+<origin xyz="-0.0889 0 0.0587375" rpy="0 0 0"/>
 </joint>
 
 </robot>
