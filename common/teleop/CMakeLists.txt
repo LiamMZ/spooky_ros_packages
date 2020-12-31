@@ -23,6 +23,8 @@ include_directories(
   ${catkin_INCLUDE_DIRS}
 )
 
-
-catkin_install_python(PROGRAMS scripts/keyboard_teleop.py
-                      DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION})
+install(
+     PROGRAMS
+     scripts/keyboard_teleop.py
+     DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
+)

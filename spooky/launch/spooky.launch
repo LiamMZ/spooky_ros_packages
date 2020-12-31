@@ -2,10 +2,15 @@
     <arg name="nodelet_manager" default="spooky"/>
     <arg name="output" default="screen"/>
     <arg name="chassis" default="4_wheel"/>
+    <!-- Motor arguments -->
     <arg name="left_front_motor" default="1"/>
     <arg name="left_rear_motor" default="2"/>
     <arg name="right_front_motor" default="3"/>
     <arg name="right_rear_motor" default="4"/>
+
+    <!-- odometry arguments -->
+    <arg name="ticks_meter" default="98"/>
+    <arg name="base_width" default="0.127"/>
 
 <!-- Start a nodelet manager, if needed -->
 <node pkg="nodelet" type="nodelet" name="$(arg nodelet_manager)"
@@ -19,7 +24,7 @@ args="manager" output="$(arg output)"/>
 <group if="$(eval arg('chassis')=='tank')">
     <node pkg="tf" type="static_transform_publisher" name="base_laser_broadcaster" args="0 0 0 0 0 0 1 /base_link /base_laser 100"/>
 </group>
-
+<rosparam param="ticks_meter">98</rosparam>
 <!-- Hardware nodes -->
 <include file="$(find motor_actuator)/launch/motor_actuator_nodelet.launch">
     <arg name="name" value="motor_actuator"/>
@@ -35,42 +40,41 @@ args="manager" output="$(arg output)"/>
 </include>
 
 <include file="$(find rplidar_ros)/launch/rplidar.launch"/>
-
-<rosparam param="ticks_meter">70</rosparam>
-
-  <node pkg="differential_drive" type="pid_velocity.py" name="lpid_velocity">
-      <remap from="wheel" to="lwheel"/>
-      <remap from="motor_cmd" to="lmotor_cmd"/>
-      <remap from="wheel_vtarget" to="lwheel_vtarget"/>
-      <remap from="wheel_vel" to="lwheel_vel"/>
-      <rosparam param="Kp">200</rosparam>
-      <rosparam param="Ki">200</rosparam>
-      <rosparam param="Kd">0</rosparam>
-      <rosparam param="out_min">-255</rosparam>
-      <rosparam param="out_max">255</rosparam>
-      <rosparam param="rate">30</rosparam>
-      <rosparam param="timeout_ticks">4</rosparam>
-      <rosparam param="rolling_pts">5</rosparam>
-  </node>
-  <node pkg="differential_drive" type="pid_velocity.py" name="rpid_velocity">
-      <remap from="wheel" to="rwheel"/>
-      <remap from="motor_cmd" to="rmotor_cmd"/>
-      <remap from="wheel_vtarget" to="rwheel_vtarget"/>
-      <remap from="wheel_vel" to="rwheel_vel"/>
-      <rosparam param="Kp">200</rosparam>
-      <rosparam param="Ki">200</rosparam>
-      <rosparam param="Kd">0</rosparam>
-      <rosparam param="out_min">-255</rosparam>
-      <rosparam param="out_max">255</rosparam>
-      <rosparam param="rate">30</rosparam>
-      <rosparam param="timeout_ticks">4</rosparam>
-      <rosparam param="rolling_pts">5</rosparam>
-  </node>
-
-<!-- <node pkg="differential_drive" type="virtual_joystick.py" name="virtual_joystick" output="screen"/> -->
-  <!-- <node pkg="teleop" type="keyboard_teleop.py" name="key_teleop" output="screen"/> -->
-  <node pkg="differential_drive" type="twist_to_motors.py" name="twist_to_motors" output="screen">
-    <rosparam param="base_width">0.17145</rosparam>
-  </node>
+<node pkg="differential_drive" type="pid_velocity.py" name="lpid_velocity">
+    <remap from="wheel" to="lwheel"/>
+    <remap from="motor_cmd" to="lmotor_cmd"/>
+    <remap from="wheel_vtarget" to="lwheel_vtarget"/>
+    <remap from="wheel_vel" to="lwheel_vel"/>
+    <rosparam param="Kp">200</rosparam>
+    <rosparam param="Ki">200</rosparam>
+    <rosparam param="Kd">0</rosparam>
+    <rosparam param="out_min">-255</rosparam>
+    <rosparam param="out_max">255</rosparam>
+    <rosparam param="rate">30</rosparam>
+    <rosparam param="timeout_ticks">4</rosparam>
+    <rosparam param="rolling_pts">5</rosparam>
+</node>
+<node pkg="differential_drive" type="pid_velocity.py" name="rpid_velocity">
+    <remap from="wheel" to="rwheel"/>
+    <remap from="motor_cmd" to="rmotor_cmd"/>
+    <remap from="wheel_vtarget" to="rwheel_vtarget"/>
+    <remap from="wheel_vel" to="rwheel_vel"/>
+    <rosparam param="Kp">200</rosparam>
+    <rosparam param="Ki">200</rosparam>
+    <rosparam param="Kd">0</rosparam>
+    <rosparam param="out_min">-255</rosparam>
+    <rosparam param="out_max">255</rosparam>
+    <rosparam param="rate">30</rosparam>
+    <rosparam param="timeout_ticks">4</rosparam>
+    <rosparam param="rolling_pts">5</rosparam>
+</node>
+<node pkg="differential_drive" type="twist_to_motors.py" name="twist_to_motors" output="screen">
+  <param name="base_width" value="$(arg base_width)"/>
+</node>
+<node pkg="differential_drive" type="virtual_joystick.py" name="virtual_joystick" output="screen"/>
+<node pkg="differential_drive" type="diff_tf.py" name="diff_tf" output="screen">
+  <param name="base_width" value="$(arg base_width)"/>
+  <param name="ticks_meter" value="$(arg ticks_meter)"/>
+</node>
 
 </launch>
