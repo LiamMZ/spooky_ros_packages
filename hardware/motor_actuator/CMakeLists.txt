@@ -38,6 +38,14 @@ add_library( ${PROJECT_NAME}
     src/pwm.cpp
     )
 
+catkin_python_setup()
+
+install(
+     PROGRAMS
+     nodes/encoder_node.py
+     DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
+)
+
 add_library(MotorActuatorNodelet src/motor_actuator_nodelet.cpp)
 target_link_libraries(MotorActuatorNodelet ${catkin_LIBRARIES} ${PROJECT_NAME} -lwiringPi)
 ## Mark the nodelet library for installations

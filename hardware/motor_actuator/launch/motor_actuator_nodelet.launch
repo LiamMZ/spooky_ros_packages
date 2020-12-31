@@ -40,6 +40,6 @@
         <param name="right_rear_motor" value="$(arg right_rear_motor)"/>
         <param name="right_front_motor" value="$(arg right_front_motor)"/>
     </node>
-
+  <node pkg="motor_actuator" type="encoder_node.py" name="encoder_node"/>
   </group>
 </launch>
