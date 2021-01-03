@@ -1,16 +1,18 @@
 <launch>
     <arg name="nodelet_manager" default="spooky"/>
     <arg name="output" default="screen"/>
-    <arg name="chassis" default="4_wheel"/>
-    <!-- Motor arguments -->
-    <arg name="left_front_motor" default="1"/>
-    <arg name="left_rear_motor" default="2"/>
-    <arg name="right_front_motor" default="3"/>
-    <arg name="right_rear_motor" default="4"/>
+    <arg name="chassis" default="tank"/>
+    <arg name="use_joystick" default="false"/>
+
 
     <!-- odometry arguments -->
     <arg name="ticks_meter" default="98"/>
     <arg name="base_width" default="0.127"/>
+    <!-- Motor arguments -->
+    <arg name="left_front_motor" default="1"/>
+    <arg name="left_rear_motor" default="4"/>
+    <arg name="right_front_motor" default="3"/>
+    <arg name="right_rear_motor" default="2"/>
 
 <!-- Start a nodelet manager, if needed -->
 <node pkg="nodelet" type="nodelet" name="$(arg nodelet_manager)"
@@ -18,11 +20,17 @@ args="manager" output="$(arg output)"/>
 
 <!-- Static tfs for 4 wheeled chassis-->
 <group if="$(eval arg('chassis')=='4_wheel')">
-    <node pkg="tf" type="static_transform_publisher" name="base_laser_broadcaster" args="0 0 0 0 0 0 1 /base_link /base_laser 100"/>
+    <node pkg="tf" type="static_transform_publisher" name="base_laser_broadcaster" args="0 0 0 0 0 0 1 /base_link /laser 100"/>
+    <!-- Motor arguments -->
+    <arg name="left_front_motor" default="1"/>
+    <arg name="left_rear_motor" default="2"/>
+    <arg name="right_front_motor" default="3"/>
+    <arg name="right_rear_motor" default="4"/>
 </group>
 <!-- Static tfs for 2_motor tank chassis-->
 <group if="$(eval arg('chassis')=='tank')">
     <node pkg="tf" type="static_transform_publisher" name="base_laser_broadcaster" args="0 0 0 0 0 0 1 /base_link /base_laser 100"/>
+    
 </group>
 <rosparam param="ticks_meter">98</rosparam>
 <!-- Hardware nodes -->
@@ -71,7 +79,7 @@ args="manager" output="$(arg output)"/>
 <node pkg="differential_drive" type="twist_to_motors.py" name="twist_to_motors" output="screen">
   <param name="base_width" value="$(arg base_width)"/>
 </node>
-<node pkg="differential_drive" type="virtual_joystick.py" name="virtual_joystick" output="screen"/>
+<node pkg="differential_drive" type="virtual_joystick.py" name="virtual_joystick" output="screen" if="$(arg use_joystick)"/>
 <node pkg="differential_drive" type="diff_tf.py" name="diff_tf" output="screen">
   <param name="base_width" value="$(arg base_width)"/>
   <param name="ticks_meter" value="$(arg ticks_meter)"/>
