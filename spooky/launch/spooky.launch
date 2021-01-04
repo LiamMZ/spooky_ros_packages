@@ -6,7 +6,7 @@
 
 
     <!-- odometry arguments -->
-    <arg name="ticks_meter" default="98"/>
+    <arg name="ticks_meter" default="2073.15"/>
     <arg name="base_width" default="0.127"/>
     <!-- Motor arguments -->
     <arg name="left_front_motor" default="1"/>
@@ -32,7 +32,7 @@ args="manager" output="$(arg output)"/>
     <node pkg="tf" type="static_transform_publisher" name="base_laser_broadcaster" args="0 0 0 0 0 0 1 /base_link /base_laser 100"/>
     
 </group>
-<rosparam param="ticks_meter">98</rosparam>
+<rosparam param="ticks_meter">2073.15</rosparam>
 <!-- Hardware nodes -->
 <include file="$(find motor_actuator)/launch/motor_actuator_nodelet.launch">
     <arg name="name" value="motor_actuator"/>
