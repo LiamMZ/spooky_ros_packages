@@ -162,4 +162,9 @@ namespace util
         util_log::error ("Unrecognised Raspberry Pi device.");
         return -1;
     }
+
+    inline bool isEqual(float in1, float in2, float tol)
+    {
+        return std::abs(in1-in2)<=tol;
+    }
 }

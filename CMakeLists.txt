@@ -5,3 +5,4 @@ set(SPOOKY_VERSION 0.1)
 
 add_subdirectory(common)
 add_subdirectory(hardware)
+add_subdirectory(spooky)

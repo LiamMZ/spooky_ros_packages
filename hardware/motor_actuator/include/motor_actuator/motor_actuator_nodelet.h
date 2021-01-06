@@ -1,7 +1,9 @@
 #include <nodelet/nodelet.h>
 #include <ros/ros.h>
 #include <motor_actuator/motor_driver.h>
-#include <spooky_msgs/MotorCommand.h>
+#include <std_msgs/Float32.h>
+#include <mutex>
+
 
 namespace motor_actuator
 {
@@ -21,6 +23,8 @@ namespace motor_actuator
             void Setup(ros::NodeHandle& nh);
 
         private:
+            // member variable for motor driver 
+            MotorDriver driver_;
             /**
              * Callback for motor command service
              * 
@@ -28,15 +32,25 @@ namespace motor_actuator
              * @param[in] res - motor command service response
              * @returns success - indicates command was successfully sent to motor
              */
-            bool motor_callback(spooky_msgs::MotorCommand::Request& req,
-                                 spooky_msgs::MotorCommand::Response& res);
+            void right_motor_callback(const std_msgs::Float32 cmd);
 
-            // member variable for motor command service
-            ros::ServiceServer motor_server_;
-            // member variable for motor driver 
-            MotorDriver driver_;
+            void left_motor_callback(const std_msgs::Float32 cmd);
+
+
+
+            // member variable for left motor command subscriber
+            ros::Subscriber left_motor_sub_;
+            // member variable for right motor command subscriber
+            ros::Subscriber right_motor_sub_;
             // member variable for node handle
             ros::NodeHandle nh_;
+            
+
+            int left_rear_motor_;
+            int left_front_motor_;
+            int right_rear_motor_;
+            int right_front_motor_;
+            std::mutex driver_lock;
     };
 
 }

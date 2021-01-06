@@ -1,13 +1,18 @@
 <launch>
   <!-- Required Args -->
-  <arg name="name"/>    <!-- nodlet name -->
-  <arg name="class"/>   <!-- nodelet class-->
+  <arg name="name" default="motor_actuator"/>    <!-- nodlet name -->
+  <arg name="class" default="motor_actuator/MotorActuatorNodelet"/>   <!-- nodelet class-->
 
   <!-- Optional Args -->
   <arg name="manager" default=""/>
   <arg name="enable" default="true"/>
   <arg name="output" default="screen"/>
   <arg name="arguments" default="" />              <!-- Arguments to nodelet -->
+  <arg name="left_front_motor" default="1"/>
+  <arg name="left_rear_motor" default="2"/>
+  <arg name="right_front_motor" default="3"/>
+  <arg name="right_rear_motor" default="4"/>
+  
 
  <!-- Don't do anything if the node is disabled -->
   <group if="$(arg enable)">
@@ -29,7 +34,12 @@
     <node pkg="nodelet" type="nodelet" name="$(arg name)"
           required="false" respawn="false"
           args="load $(arg class) $(arg nodelet_manager) $(arg arguments)"
-          output="$(arg output)"/>
-
+          output="$(arg output)">
+        <param name="left_rear_motor" value="$(arg left_rear_motor)"/>
+        <param name="left_front_motor" value="$(arg left_front_motor)"/>
+        <param name="right_rear_motor" value="$(arg right_rear_motor)"/>
+        <param name="right_front_motor" value="$(arg right_front_motor)"/>
+    </node>
+  <node pkg="motor_actuator" type="encoder_node.py" name="encoder_node"/>
   </group>
 </launch>
