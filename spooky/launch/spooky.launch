@@ -3,11 +3,12 @@
     <arg name="output" default="screen"/>
     <arg name="chassis" default="tank"/>
     <arg name="use_joystick" default="false"/>
+    <arg name="teleop" default="false"/>
 
 
     <!-- odometry arguments -->
     <arg name="ticks_meter" default="2073.15"/>
-    <arg name="base_width" default="0.127"/>
+    <arg name="base_width" default="0.19685"/>
     <!-- Motor arguments -->
     <arg name="left_front_motor" default="1"/>
     <arg name="left_rear_motor" default="4"/>
@@ -29,7 +30,7 @@ args="manager" output="$(arg output)"/>
 </group>
 <!-- Static tfs for 2_motor tank chassis-->
 <group if="$(eval arg('chassis')=='tank')">
-    <node pkg="tf" type="static_transform_publisher" name="base_laser_broadcaster" args="0 0 0 0 0 0 1 /base_link /base_laser 100"/>
+    <node pkg="tf" type="static_transform_publisher" name="base_laser_broadcaster" args="0 0 0 0 0 0.7071068 0.7071068 /base_link /laser 100"/>
     
 </group>
 <rosparam param="ticks_meter">2073.15</rosparam>
