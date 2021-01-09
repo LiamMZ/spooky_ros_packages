@@ -1,0 +1,6 @@
+<launch>
+<include file="$(find spooky)/launch/spooky.launch"/>
+
+<node pkg="rosbag" type="record" name="rosbag_record_diag"
+       args="record -O $(find spooky)/data/map_data /scan /tf /odom"/>
+</launch>
