@@ -8,7 +8,7 @@
 
 
     <!-- odometry arguments -->
-    <arg name="ticks_meter" default="2073.15"/>
+    <arg name="ticks_meter" default="4100"/>
     <arg name="base_width" default="0.2032"/>
     <!-- Motor arguments -->
     <arg name="left_front_motor" default="1"/>
@@ -31,10 +31,10 @@ args="manager" output="$(arg output)"/>
 </group>
 <!-- Static tfs for 2_motor tank chassis-->
 <group if="$(eval arg('chassis')=='tank')">
-    <node pkg="tf" type="static_transform_publisher" name="base_laser_broadcaster" args="0 0 0 0 0 0.7071068 0.7071068 /base_link /laser 100"/>
+    <node pkg="tf" type="static_transform_publisher" name="base_laser_broadcaster" args="-0.06985 0 0 0 0 0.7071068 0.7071068 /base_link /laser 100"/>
     
 </group>
-<rosparam param="ticks_meter">2073.15</rosparam>
+<rosparam param="ticks_meter">4100</rosparam>
 <!-- Hardware nodes -->
 <include file="$(find motor_actuator)/launch/motor_actuator_nodelet.launch">
     <arg name="name" value="motor_actuator"/>
