@@ -12,6 +12,8 @@
   <arg name="left_rear_motor" default="2"/>
   <arg name="right_front_motor" default="3"/>
   <arg name="right_rear_motor" default="4"/>
+  <arg name="encoder_max" default="32750"/>
+  <arg name="encoder_min" default="-32750"/>
   
 
  <!-- Don't do anything if the node is disabled -->
@@ -40,6 +42,9 @@
         <param name="right_rear_motor" value="$(arg right_rear_motor)"/>
         <param name="right_front_motor" value="$(arg right_front_motor)"/>
     </node>
-  <node pkg="motor_actuator" type="encoder_node.py" name="encoder_node"/>
+  <node pkg="motor_actuator" type="encoder_node.py" name="encoder_node">
+    <param name="encoder_min" value="$(arg encoder_min)"/>
+    <param name="encoder_max" value="$(arg encoder_max)"/>
+  </node>
   </group>
 </launch>

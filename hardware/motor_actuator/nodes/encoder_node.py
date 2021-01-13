@@ -8,9 +8,11 @@ from std_msgs.msg import Int16
 class EncoderNode(object):
     def __init__(self, lpin=4, rpin=26):
         chassis = rospy.get_param('/chassis', 'tank')
+        encoder_min = rospy.get_param('encoder_min', -32750)
+        encoder_max = rospy.get_param('encoder_max', 32750)
         if chassis=='tank':
-            self.left_encoder = RotaryEncoder(24,23)
-            self.right_encoder = RotaryEncoder(6,16)
+            self.left_encoder = RotaryEncoder(24,23, encoder_max=encoder_max, encoder_min=encoder_min)
+            self.right_encoder = RotaryEncoder(6,16, encoder_max=encoder_max, encoder_min=encoder_min)
         elif chassis == '4_wheel':
             self.left_encoder = PhotoInterupterEncoderCounter(lpin)
             self.right_encoder = PhotoInterupterEncoderCounter(rpin)

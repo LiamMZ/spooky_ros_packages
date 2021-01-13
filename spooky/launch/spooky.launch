@@ -8,8 +8,11 @@
 
 
     <!-- odometry arguments -->
-    <arg name="ticks_meter" default="4100"/>
+    <arg name="ticks_meter" default="4000"/>
     <arg name="base_width" default="0.2032"/>
+    <arg name="encoder_max" default="32750"/>
+    <arg name="encoder_min" default="-32750"/>
+
     <!-- Motor arguments -->
     <arg name="left_front_motor" default="1"/>
     <arg name="left_rear_motor" default="4"/>
@@ -34,7 +37,7 @@ args="manager" output="$(arg output)"/>
     <node pkg="tf" type="static_transform_publisher" name="base_laser_broadcaster" args="-0.06985 0 0 0 0 0.7071068 0.7071068 /base_link /laser 100"/>
     
 </group>
-<rosparam param="ticks_meter">4100</rosparam>
+<rosparam param="ticks_meter">4000</rosparam>
 <!-- Hardware nodes -->
 <include file="$(find motor_actuator)/launch/motor_actuator_nodelet.launch">
     <arg name="name" value="motor_actuator"/>
@@ -47,6 +50,8 @@ args="manager" output="$(arg output)"/>
     <arg name="left_front_motor" value="$(arg left_front_motor)"/>
     <arg name="right_rear_motor" value="$(arg right_rear_motor)"/>
     <arg name="right_front_motor" value="$(arg right_front_motor)"/>
+    <param name="encoder_min" value="$(arg encoder_min)"/>
+    <param name="encoder_max" value="$(arg encoder_max)"/>
 </include>
 
 <include file="$(find rplidar_ros)/launch/rplidar.launch"/>
@@ -83,8 +88,10 @@ args="manager" output="$(arg output)"/>
 </node>
 <node pkg="differential_drive" type="virtual_joystick.py" name="virtual_joystick" output="screen" if="$(arg use_joystick)"/>
 <node pkg="differential_drive" type="diff_tf.py" name="diff_tf" output="screen">
-  <param name="base_width" value="$(arg base_width)"/>
-  <param name="ticks_meter" value="$(arg ticks_meter)"/>
+    <param name="encoder_min" value="$(arg encoder_min)"/>
+    <param name="encoder_max" value="$(arg encoder_max)"/>
+    <param name="base_width" value="$(arg base_width)"/>
+    <param name="ticks_meter" value="$(arg ticks_meter)"/>
 </node>
 
 <node type="rviz" name="rviz" pkg="rviz" args="-d $(find spooky)/config/spooky_test.rviz" if="$(arg display)"/>
