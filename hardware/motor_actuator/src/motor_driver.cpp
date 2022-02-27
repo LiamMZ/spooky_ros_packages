@@ -1,7 +1,7 @@
 #include <motor_actuator/motor_driver.h>
 #include <sstream>
 
-MotorDriver::MotorDriver()
+MotorDriver::MotorDriver() : hat_(AdafruitMotorHAT(0x11))
 {
     for(int i = 0; i<NUM_MOTORS; i++)
     {

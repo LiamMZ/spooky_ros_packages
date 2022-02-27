@@ -31,8 +31,8 @@ include_directories(
   ${catkin_INCLUDE_DIRS}
 )
 
-add_library(RaspiCamNodelet src/raspi_cam_nodelet.cpp)
-target_link_libraries(RaspiCamNodelet ${catkin_LIBRARIES})
+add_library(${PROJECT_NAME} src/raspi_cam_nodelet.cpp)
+target_link_libraries(RaspiCamNodelet ${catkin_LIBRARIES} ${PROJECT_NAME})
 
 ## Mark the nodelet library for installations
 install(TARGETS RaspiCamNodelet
