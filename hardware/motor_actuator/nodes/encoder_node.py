@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 
-from motor_actuator.pi_encoder import PhotoInterupterEncoderCounter
+# from motor_actuator.pi_encoder import PhotoInterupterEncoderCounter
 from motor_actuator.rotary_encoder_v2 import RotaryEncoder
 import rospy
 from std_msgs.msg import Int16
@@ -13,9 +13,9 @@ class EncoderNode(object):
         if chassis=='tank':
             self.left_encoder = RotaryEncoder(24,23, encoder_max=encoder_max, encoder_min=encoder_min)
             self.right_encoder = RotaryEncoder(6,16, encoder_max=encoder_max, encoder_min=encoder_min)
-        elif chassis == '4_wheel':
-            self.left_encoder = PhotoInterupterEncoderCounter(lpin)
-            self.right_encoder = PhotoInterupterEncoderCounter(rpin)
+        # elif chassis == '4_wheel':
+        #     self.left_encoder = PhotoInterupterEncoderCounter(lpin)
+        #     self.right_encoder = PhotoInterupterEncoderCounter(rpin)
         self.left_encoder_pub_ = rospy.Publisher('lwheel', Int16, queue_size=10)
         self.right_encoder_pub_ = rospy.Publisher('rwheel', Int16, queue_size=10)
     
