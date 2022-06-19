@@ -36,10 +36,8 @@ namespace motor_actuator
     {
         try
         {
-            driver_lock.lock();
             driver_.setMotor(left_rear_motor_, cmd.data);
             driver_.setMotor(left_front_motor_,cmd.data);
-            driver_lock.unlock();
         }
         catch(...)
         {
@@ -49,9 +47,7 @@ namespace motor_actuator
     
     void MotorActuatorNodelet::right_motor_callback(const std_msgs::Float32 cmd)
     {
-        driver_lock.lock();
         driver_.setMotor(right_rear_motor_, cmd.data);
         driver_.setMotor(right_front_motor_, cmd.data);
-        driver_lock.unlock();
     }
 }
