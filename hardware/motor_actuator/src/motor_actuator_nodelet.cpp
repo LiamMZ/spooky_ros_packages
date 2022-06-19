@@ -23,8 +23,8 @@ namespace motor_actuator
             nh.getParam("/motor_actuator/right_rear_motor", right_rear_motor_);
             nh.getParam("/motor_actuator/right_front_motor", right_front_motor_);
             
-            left_motor_sub_ = nh.subscribe("lmotor_cmd", 1000, &MotorActuatorNodelet::right_motor_callback, this);
-            right_motor_sub_ = nh.subscribe("rmotor_cmd", 1000, &MotorActuatorNodelet::left_motor_callback, this);
+            right_motor_sub_ = nh.subscribe("rmotor_cmd", 1000, &MotorActuatorNodelet::right_motor_callback, this);
+            left_motor_sub_ = nh.subscribe("lmotor_cmd", 1000, &MotorActuatorNodelet::left_motor_callback, this);
         }
         catch(...)
         {
