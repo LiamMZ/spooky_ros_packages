@@ -31,7 +31,7 @@ MotorDriver::~MotorDriver()
 void MotorDriver::setMotor(int motor, float speed)
 {
     try{
-        motors_[motor]->setSpeed(convertSpeed(speed));
+        motors_[motor]->setSpeed(std::abs(speed));
         motors_[motor]->run(getCommand(speed));
     } catch(...)
     {
@@ -49,5 +49,5 @@ Command MotorDriver::getCommand(float speed)
 
 int MotorDriver::convertSpeed(float speed)
 {
-    return std::abs(sped);
+    return std::abs(speed);
 }
